@@ -1,2 +1,11 @@
 # memory_game_project
 A project on  Front-End Web Developer Nanodegree Program.
+
+ATTRIBUTIONS
+============
+
+https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+https://internetingishard.com/html-and-css/css-box-model/
+
+
