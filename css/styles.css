@@ -5,11 +5,14 @@
 }
 
 td {
+    width: 150px;
     background-color: red;
 }
 
 table {
     max-width: 100%;
-    width: 100%;
-    table-layout: fixed;
+}
+
+tr {
+    height: 150px;
 }
