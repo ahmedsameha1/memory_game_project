@@ -6,20 +6,24 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     "img/ic_visibility_black_24px.svg" ];
     const show_img = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
-    }
+    };
     const check_same_symbol = function(id1, id2){
         return cards[parseInt(id1)].symbol_file ===
             cards[parseInt(id2)].symbol_file
-    }
+    };
+    const set_completed = function (id1, id2) {
+        cards[parseInt(id1)].completed = true;
+        cards[parseInt(id2)].completed = true;
+    };
     const check_grid_completed = function() {
         for ( card in cards ) {
             if ( !card.completed ) return false;
         }
         return true;
-    }
+    };
     const check_card_completed = function(id) {
         return cards[parseInt(id)].completed;
-    }
+    };
     const cards = [];
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
@@ -48,7 +52,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             } else {
                 count_of_moves++;
                 previous_clicked_card_id = null;
-                if ( /* is_the_same_symbol */ true ) {
+                if ( check_same_symbol(id, previous_clicked_card_id ) {
                 }
             }
 
