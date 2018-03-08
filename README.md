@@ -13,3 +13,7 @@ https://material.io/icons/
 https://getbootstrap.com/docs/4.0/layout/grid/
 
 https://developer.mozilla.org/
+
+http://jquery.com/
+
+https://stackoverflow.com/

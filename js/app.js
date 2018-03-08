@@ -7,6 +7,9 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     const show_symbol = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
     };
+    const hide_symbol = function(id) {
+        $(`td[id=${id}]`).empty();
+    };
     const check_same_symbol = function(id1, id2){
         return cards[parseInt(id1)].symbol_file ===
             cards[parseInt(id2)].symbol_file
@@ -28,6 +31,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
     const completed_cards = []
+    let while_hiding = false;
 
     const dist_symbols_on_cards = function () {
         for ( let i = 0; i < symbol_files.length; i++ ) {
@@ -46,18 +50,33 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
 
     $("table").on("click", "td", function (event) {
         const id = $(this).attr("id");
-        if ( id !== previous_clicked_card_id ) {
+        if ( id !== previous_clicked_card_id && !while_hiding ) {
+            console.log("is not the previous clicked card");
             if ( previous_clicked_card_id === null ) {
+                console.log("previous clicked card id is null");
                 if ( !check_card_completed(id) ) {
+                    console.log("show symbol & save this card in the previous");
                     show_symbol(this, id);
                     previous_clicked_card_id = id;    // To compare in the next click
                 }
             } else {
+                console.log("previous clicked card id isn't null");
                 count_of_moves++;
+                show_symbol(this, id);
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
+                    console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
                 } else {
+                    console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
                     // Hide symbols
+                    while_hiding = true;
+                    const temp_previous = previous_clicked_card_id;
+                    setTimeout(function() {
+                        hide_symbol(id);
+                        hide_symbol(temp_previous);
+                        while_hiding = false;
+                        console.log("After hiding symbols");
+                    }, 1500);
                 }
                 previous_clicked_card_id = null;
             }
