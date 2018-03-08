@@ -8,16 +8,17 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
     }
     const check_same_symbol = function(id1, id2){
-        if ( cards[parseInt(id1)].symbol_file ===
-            cards[parseInt(id2)].symbol_file ) {
-            return true;
-        }
+        return cards[parseInt(id1)].symbol_file ===
+            cards[parseInt(id2)].symbol_file
     }
     const check_grid_completed = function() {
         for ( card in cards ) {
             if ( !card.completed ) return false;
         }
         return true;
+    }
+    const check_card_completed = function(id) {
+        return cards[parseInt(id)].completed;
     }
     const cards = [];
     let count_of_moves = 0;
