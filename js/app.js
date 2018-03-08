@@ -7,28 +7,23 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     const show_img = function(td, id) {
         $(td).append(`<img src="${card_symbol[parseInt(id)]}">`);
     }
-    const symbols = [];
+    const cards = [];
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
     const completed_cards = []
 
     const dist_symbols_on_cards = function () {
-        const temp = [];
         for ( let i = 0; i < symbol_files.length; i++ ) {
-            const symbol = {
-                cards: [],
-                symbol_file: symbol_files[i],
-                completed: false
-            };
             for (let k = 0; k < 2; k++) {
                 let rand_try;
                 do {
                     rand_try = Math.floor(Math.random() * 16);
-                } while ( temp[rand_try] !== undefined );
-                symbol.cards[k] = rand_try;
-                temp[rand_try] = 1;
+                } while ( cards[rand_try] !== undefined );
+                cards[rand_try] = {
+                    symbol_file: symbol_files[i],
+                    completed: false
+                }
             }
-            symbols[i] = symbol;
         }
     }
 
