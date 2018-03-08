@@ -4,7 +4,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     "img/ic_hearing_black_24px.svg", "img/ic_language_black_24px.svg",
     "img/ic_lock_black_24px.svg", "img/ic_shopping_basket_black_24px.svg",
     "img/ic_visibility_black_24px.svg" ];
-    const show_img = function(td, id) {
+    const show_symbol = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
     };
     const check_same_symbol = function(id1, id2){
@@ -48,14 +48,19 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         const id = $(this).attr("id");
         if ( id !== previous_clicked_card_id ) {
             if ( previous_clicked_card_id === null ) {
-                //previous_clicked_card_id = id;    // To compare in the next click
+                if ( !check_card_completed(id) ) {
+                    show_symbol(this, id);
+                    previous_clicked_card_id = id;    // To compare in the next click
+                }
             } else {
                 count_of_moves++;
-                previous_clicked_card_id = null;
-                if ( check_same_symbol(id, previous_clicked_card_id ) {
+                if ( check_same_symbol(id, previous_clicked_card_id) ) {
+                    set_completed(id, previous_clicked_card_id);
+                } else {
+                    // Hide symbols
                 }
+                previous_clicked_card_id = null;
             }
-
         }
     });
     dist_symbols_on_cards();
