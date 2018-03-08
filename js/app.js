@@ -5,7 +5,13 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     "img/ic_lock_black_24px.svg", "img/ic_shopping_basket_black_24px.svg",
     "img/ic_visibility_black_24px.svg" ];
     const show_img = function(td, id) {
-        $(td).append(`<img src="${card_symbol[parseInt(id)]}">`);
+        $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
+    }
+    const check_same_symbol = function(id1, id2){
+        if ( cards[parseInt(id1)].symbol_file ===
+            cards[parseInt(id2)].symbol_file ) {
+            return true;
+        }
     }
     const cards = [];
     let count_of_moves = 0;
