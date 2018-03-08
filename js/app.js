@@ -13,6 +13,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             return true;
         }
     }
+    const check_grid_completed = function() {
+        for ( card in cards ) {
+            if ( !card.completed ) return false;
+        }
+        return true;
+    }
     const cards = [];
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
