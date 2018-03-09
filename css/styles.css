@@ -16,3 +16,13 @@ table {
 tr {
     height: 150px;
 }
+
+img {
+    /* source: https://stackoverflow.com/a/16695520 by: Maurizio Battaghini */
+    /* prevents most img selection cases. */
+    -moz-user-select     : none;
+    -khtml-user-select   : none;
+    -webkit-user-select  : none;
+    -o-user-select       : none;
+    user-select          : none;
+}
