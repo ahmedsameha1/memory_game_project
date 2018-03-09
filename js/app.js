@@ -12,6 +12,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     let previous_clicked_card_id = null;
     const completed_cards = []
     let while_hiding = false;
+    let after_success_move = false;
 
     const show_symbol = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
@@ -78,7 +79,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         const id = $(this).attr("id");
         if ( id !== previous_clicked_card_id
             && !while_hiding
-            && !check_card_completed(id) ) {
+            && !check_card_completed(id)
+            && !after_success_move ) {
             console.log("is not the previous clicked card");
             if ( previous_clicked_card_id === null ) {
                 console.log("previous clicked card id is null");
@@ -92,6 +94,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
                     console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
+                    after_success_move = true;
+                    setTimeout(function(){ after_success_move = false; }, 2000);
                 } else {
                     console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
                     // Hide symbols
