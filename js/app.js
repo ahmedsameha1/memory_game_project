@@ -54,7 +54,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 }
             }
         }
-    }
+    };
+
+    const increment_moves = function () {
+        count_of_moves++;
+        $(".count-of-moves").html((count_of_moves).toString());
+    };
 
     $("table").on("click", "td", function (event) {
         const id = $(this).attr("id");
@@ -69,7 +74,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 previous_clicked_card_id = id;    // To compare in the next click
             } else {
                 console.log("previous clicked card id isn't null");
-                count_of_moves++;
+                increment_moves();
                 show_symbol(this, id);
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
                     console.log("the two cards are have the same symbol");
