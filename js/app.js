@@ -34,7 +34,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     };
 
     const check_grid_completed = function() {
-        for ( card in cards ) {
+        for ( let card in cards ) {
             if ( !card.completed ) return false;
         }
         return true;
@@ -110,6 +110,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     }, 2000);
                     if ( check_grid_completed() ) {
                         total_time = new Date() - start_time;
+                        $('#exampleModal').modal(options);
                     }
                 } else {
                     console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
