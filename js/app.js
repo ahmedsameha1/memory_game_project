@@ -13,6 +13,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     const completed_cards = []
     let while_hiding = false;
     let after_success_move = false;
+    let start_time, total_time, interval_id;
 
     const show_symbol = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
@@ -75,12 +76,21 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         }
     };
 
+    const start_timer = function() {
+        let start = new Date;
+        start_time = start;
+
+        interval_id = setInterval(function() {
+            $('.timer').text(parseInt((new Date - start) / 1000));
+        }, 1000);
+    };
+
     $("table").on("click", "td", function (event) {
         const id = $(this).attr("id");
         if ( id !== previous_clicked_card_id
             && !while_hiding
-            && !check_card_completed(id)
-            && !after_success_move ) {
+        && !check_card_completed(id)
+        && !after_success_move ) {
             console.log("is not the previous clicked card");
             if ( previous_clicked_card_id === null ) {
                 console.log("previous clicked card id is null");
@@ -95,7 +105,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
                     after_success_move = true;
-                    setTimeout(function(){ after_success_move = false; }, 2000);
+                    setTimeout(function(){
+                        after_success_move = false;
+                    }, 2000);
+                    if ( check_grid_completed() ) {
+                        total_time = new Date() - start_time;
+                    }
                 } else {
                     console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
                     // Hide symbols
@@ -112,4 +127,6 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             }
         }
     });
+
     dist_symbols_on_cards();
+    start_timer();
