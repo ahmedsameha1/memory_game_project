@@ -6,6 +6,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     "img/ic_visibility_black_24px.svg" ];
 
     const cards = [];
+    const star2 = 24, star3 = 16;
+    let star2_changed = false, star3_changed = false;
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
     const completed_cards = []
@@ -59,6 +61,17 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     const increment_moves = function () {
         count_of_moves++;
         $(".count-of-moves").html((count_of_moves).toString());
+        set_stars();
+    };
+
+    const set_stars = function () {
+        if ( count_of_moves > star2 && !star2_changed ) {
+            $("#star2").attr("src", "img/ic_star_border_black_24px.svg");
+            star2_changed = true;
+        } else if (count_of_moves > star3 && !star3_changed ) {
+            $("#star3").attr("src", "img/ic_star_border_black_24px.svg");
+            star3_changed = true;
+        }
     };
 
     $("table").on("click", "td", function (event) {
