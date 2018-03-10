@@ -27,3 +27,7 @@ https://stackoverflow.com/a/596503 by: moonshadow
 https://stackoverflow.com/a/109091 by: John Millikin
 
 https://stackoverflow.com/a/13183713 by: Chase
+
+https://stackoverflow.com/a/1232046 by: Philippe Leybaert
+
+https://stackoverflow.com/a/10481634 by: Larry K

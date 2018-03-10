@@ -50,7 +50,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     };
 
 
-    const dist_symbols_on_cards = function () {
+    const distribute_symbols_on_cards = function () {
         for ( let i = 0; i < symbol_files.length; i++ ) {
             for (let k = 0; k < 2; k++) {
                 let rand_try;
@@ -92,10 +92,35 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
 
     const show_modal = function() {
         let text = `You have completed the game in about ${Math.round(total_time / 1000)} seconds.`
-                    + `\nYou have earned ${star2_changed && star3_changed?"1 star":(star3_changed? "2 stars" : "3 stars")}.`
+        + `\nYou have earned ${star2_changed && star3_changed?"1 star":(star3_changed? "2 stars" : "3 stars")}.`
         $(".modal-body").text(text);
         console.log(text);
         $('#modal').modal("show");
+    };
+
+    const restart_game = function() {
+        total_time = undefined;
+        start_time = undefined;
+        after_success_move = false;
+        while_hiding = false;
+        count_of_moves = 0;
+        previous_clicked_card_id = null;
+        star2_changed = false;
+        star3_changed = false;
+        cards.splice(0, cards.length);
+        completed_cards.splice(0, completed_cards.length);
+        reset_dom();
+        distribute_symbols_on_cards();
+        clearInterval(interval_id);
+        start_timer();
+    };
+
+    const reset_dom = function() {
+        $(".timer").html("");
+        $(".count-of-moves").html("");
+        $("#star2").attr("src", "img/ic_star_black_24px.svg");
+        $("#star3").attr("src", "img/ic_star_black_24px.svg");
+        $("td").empty();
     };
 
     $("table").on("click", "td", function (event) {
@@ -144,5 +169,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         }
     });
 
-    dist_symbols_on_cards();
+    $("#play-again").click(function() {
+        restart_game();
+        $("#modal").modal("hide");
+    });
+
+    $("#restart").click(function() { restart_game() });
+
+    distribute_symbols_on_cards();
     start_timer();
