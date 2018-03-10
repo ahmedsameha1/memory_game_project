@@ -25,3 +25,5 @@ https://stackoverflow.com/a/16695520 by: Maurizio Battaghini
 https://stackoverflow.com/a/596503 by: moonshadow
 
 https://stackoverflow.com/a/109091 by: John Millikin
+
+https://stackoverflow.com/a/13183713 by: Chase

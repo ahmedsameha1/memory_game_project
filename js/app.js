@@ -16,7 +16,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     let start_time, total_time, interval_id;
 
     const show_symbol = function(td, id) {
-        $(td).append(`<img src="${cards[parseInt(id)].symbol_file}">`);
+        $(td).append(`<img src="${cards[parseInt(id, 10)].symbol_file}">`);
     };
 
     const hide_symbol = function(id) {
@@ -24,24 +24,29 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     };
 
     const check_same_symbol = function(id1, id2){
-        return cards[parseInt(id1)].symbol_file ===
-            cards[parseInt(id2)].symbol_file
+        return cards[parseInt(id1, 10)].symbol_file ===
+            cards[parseInt(id2, 10)].symbol_file
     };
 
     const set_completed = function (id1, id2) {
-        cards[parseInt(id1)].completed = true;
-        cards[parseInt(id2)].completed = true;
+        cards[parseInt(id1, 10)].completed = true;
+        cards[parseInt(id2, 10)].completed = true;
     };
 
     const check_grid_completed = function() {
-        for ( let card in cards ) {
-            if ( !card.completed ) return false;
+        for ( let card of cards ) {
+            console.log(card.completed);
+            if ( !card.completed ) {
+                console.log("false");
+                return false;
+            }
         }
         return true;
     };
 
     const check_card_completed = function(id) {
-        return cards[parseInt(id)].completed;
+        console.log(id);
+        return cards[parseInt(id, 10)].completed;
     };
 
 
@@ -81,8 +86,16 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         start_time = start;
 
         interval_id = setInterval(function() {
-            $('.timer').text(parseInt((new Date - start) / 1000));
+            $('.timer').text(parseInt((new Date - start) / 1000, 10));
         }, 1000);
+    };
+
+    const show_modal = function() {
+        let text = `You have completed the game in about ${Math.round(total_time / 1000)} seconds.`
+                    + `\nYou have earned ${star2_changed && star3_changed?"1 star":(star3_changed? "2 stars" : "3 stars")}.`
+        $(".modal-body").text(text);
+        console.log(text);
+        $('#modal').modal("show");
     };
 
     $("table").on("click", "td", function (event) {
@@ -109,8 +122,10 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                         after_success_move = false;
                     }, 2000);
                     if ( check_grid_completed() ) {
+                        clearInterval(interval_id);
                         total_time = new Date() - start_time;
-                        $('#exampleModal').modal(options);
+                        console.log(total_time);
+                        show_modal();
                     }
                 } else {
                     console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
