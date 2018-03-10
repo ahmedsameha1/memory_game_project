@@ -21,6 +21,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
 
     const hide_symbol = function(id) {
         $(`td[id=${id}]`).empty();
+        $(`td[id=${id}]`).css("background-color", "#e6ffc7");
     };
 
     const check_same_symbol = function(id1, id2){
@@ -134,11 +135,13 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("previous clicked card id is null");
                 console.log("show symbol & save this card in the previous");
                 show_symbol(this, id);
+                $(this).css("background-color", "#adff2f");
                 previous_clicked_card_id = id;    // To compare in the next click
             } else {
                 console.log("previous clicked card id isn't null");
                 increment_moves();
                 show_symbol(this, id);
+                $(this).css("background-color", "#adff2f");
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
                     console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
