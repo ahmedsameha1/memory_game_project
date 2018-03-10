@@ -123,7 +123,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $("td").empty();
     };
 
-    $("table").on("click", "td", function (event) {
+    $("table").on("click", "td", function(event) {
         const id = $(this).attr("id");
         if ( id !== previous_clicked_card_id
             && !while_hiding
@@ -143,9 +143,9 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
                     after_success_move = true;
-                    setTimeout(function(){
+                    setTimeout(() => {
                         after_success_move = false;
-                    }, 2000);
+                    }, 1000);
                     if ( check_grid_completed() ) {
                         clearInterval(interval_id);
                         total_time = new Date() - start_time;
@@ -157,7 +157,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     // Hide symbols
                     while_hiding = true;
                     const temp_previous = previous_clicked_card_id;
-                    setTimeout(function() {
+                    setTimeout(() => {
                         hide_symbol(id);
                         hide_symbol(temp_previous);
                         while_hiding = false;
@@ -169,12 +169,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         }
     });
 
-    $("#play-again").click(function() {
+    $("#play-again").click(() => {
         restart_game();
         $("#modal").modal("hide");
     });
 
-    $("#restart").click(function() { restart_game() });
+    $("#restart").click(() => { restart_game(); });
 
     distribute_symbols_on_cards();
     start_timer();
