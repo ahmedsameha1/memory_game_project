@@ -31,3 +31,5 @@ https://stackoverflow.com/a/13183713 by: Chase
 https://stackoverflow.com/a/1232046 by: Philippe Leybaert
 
 https://stackoverflow.com/a/10481634 by: Larry K
+
+https://github.com/daneden/animate.css
