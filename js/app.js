@@ -136,6 +136,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("show symbol & save this card in the previous");
                 show_symbol(this, id);
                 $(this).css("background-color", "#adff2f");
+                $(this).addClass("animated flipInY").one("animationend", function() { $(this).removeClass("animated flipInY"); });
                 previous_clicked_card_id = id;    // To compare in the next click
             } else {
                 console.log("previous clicked card id isn't null");
@@ -146,6 +147,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     console.log("the two cards are have the same symbol");
                     set_completed(id, previous_clicked_card_id);
                     after_success_move = true;
+                $(this).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
+                $(`td[id=${previous_clicked_card_id}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
                     setTimeout(() => {
                         after_success_move = false;
                     }, 1000);
