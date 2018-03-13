@@ -19,9 +19,12 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $(td).append(`<img src="${cards[parseInt(id, 10)].symbol_file}">`);
     };
 
-    const hide_symbol = function(id) {
-        $(`td[id=${id}]`).empty();
-        $(`td[id=${id}]`).css("background-color", "#e6ffc7");
+    const hide_symbol = function(ids) {
+        for ( let id of ids ) {
+            $(`td[id=${id}]`).empty();
+            $(`td[id=${id}]`).removeClass("completed");
+            $(`td[id=${id}]`).addClass("uncompleted");
+        }
     };
 
     const check_same_symbol = function(id1, id2){
@@ -29,9 +32,16 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             cards[parseInt(id2, 10)].symbol_file
     };
 
-    const set_completed = function (id1, id2) {
-        cards[parseInt(id1, 10)].completed = true;
-        cards[parseInt(id2, 10)].completed = true;
+    const set_completed = function (ids) {
+        for ( let id of ids ) {
+            cards[parseInt(id, 10)].completed = true;
+            cards[parseInt(id, 10)].completed = true;
+            $(`td[id=${id}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
+            $(`td[id=${id}]`).addClass("animated rubberBand").one("animationend", function() {
+                $(this).removeClass("animated rubberBand");
+                after_success_move = false;
+            });
+        }
     };
 
     const check_grid_completed = function() {
@@ -122,6 +132,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $("#star2").attr("src", "img/ic_star_black_24px.svg");
         $("#star3").attr("src", "img/ic_star_black_24px.svg");
         $("td").empty();
+        $("td").removeClass("completed");
+        $("td").addClass("uncompleted");
     };
 
     $("table").on("click", "td", function(event) {
@@ -135,23 +147,18 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("previous clicked card id is null");
                 console.log("show symbol & save this card in the previous");
                 show_symbol(this, id);
-                $(this).css("background-color", "#adff2f");
+                $(this).addClass("completed");
                 $(this).addClass("animated flipInY").one("animationend", function() { $(this).removeClass("animated flipInY"); });
                 previous_clicked_card_id = id;    // To compare in the next click
             } else {
                 console.log("previous clicked card id isn't null");
                 increment_moves();
                 show_symbol(this, id);
-                $(this).css("background-color", "#adff2f");
+                $(this).addClass("completed");
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
                     console.log("the two cards are have the same symbol");
-                    set_completed(id, previous_clicked_card_id);
+                    set_completed([id, previous_clicked_card_id]);
                     after_success_move = true;
-                $(this).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
-                $(`td[id=${previous_clicked_card_id}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
-                    setTimeout(() => {
-                        after_success_move = false;
-                    }, 1000);
                     if ( check_grid_completed() ) {
                         clearInterval(interval_id);
                         total_time = new Date() - start_time;
@@ -164,8 +171,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     while_hiding = true;
                     const temp_previous = previous_clicked_card_id;
                     setTimeout(() => {
-                        hide_symbol(id);
-                        hide_symbol(temp_previous);
+                        hide_symbol([id, temp_previous]);
                         while_hiding = false;
                         console.log("After hiding symbols");
                     }, 1000);

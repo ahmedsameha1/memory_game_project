@@ -6,7 +6,6 @@
 
 td {
     width: 120px;
-    background-color: #e6ffc7;
     border-radius: 15px 15px;
 }
 
@@ -36,4 +35,12 @@ img {
 td > img {
     display: block;
     margin: auto;
+}
+
+.uncompleted {
+    background-color: #e6ffc7;
+}
+
+.completed {
+    background-color: #adff2f;
 }
