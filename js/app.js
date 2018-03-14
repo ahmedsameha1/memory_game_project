@@ -36,12 +36,18 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         for ( let id of ids ) {
             cards[parseInt(id, 10)].completed = true;
             cards[parseInt(id, 10)].completed = true;
-            $(`td[id=${id}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
-            $(`td[id=${id}]`).addClass("animated rubberBand").one("animationend", function() {
-                $(this).removeClass("animated rubberBand");
-                after_success_move = false;
-            });
         }
+        $(`td[id=${ids[0]}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
+        $(`td[id=${ids[1]}]`).addClass("animated rubberBand").one("animationend", function() {
+            $(this).removeClass("animated rubberBand");
+            after_success_move = false;
+            if ( check_grid_completed() ) {
+                clearInterval(interval_id);
+                total_time = new Date() - start_time;
+                console.log(total_time);
+                show_modal();
+            }
+        });
     };
 
     const check_grid_completed = function() {
@@ -136,6 +142,22 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $("td").addClass("uncompleted");
     };
 
+    const show_wrong = function(ids) {
+        //for ( let id of ids ) {
+        $(`td[id=${ids[0]}]`).addClass("wrong animated wobble").one("animationend", function() {
+            $(this).removeClass("wrong completed animated wobble");
+            $(this).empty();
+            $(this).addClass("uncompleted");
+        });
+        $(`td[id=${ids[1]}]`).addClass("wrong animated wobble").one("animationend", function() {
+            $(this).removeClass("wrong completed animated wobble");
+            $(this).empty();
+            $(this).addClass("uncompleted");
+            while_hiding = false;
+        });
+        //}
+    };
+
     $("table").on("click", "td", function(event) {
         const id = $(this).attr("id");
         if ( id !== previous_clicked_card_id
@@ -148,7 +170,11 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("show symbol & save this card in the previous");
                 show_symbol(this, id);
                 $(this).addClass("completed");
-                $(this).addClass("animated flipInY").one("animationend", function() { $(this).removeClass("animated flipInY"); });
+                while_hiding = true;
+                $(this).addClass("animated flipInY").one("animationend", function() {
+                    $(this).removeClass("animated flipInY");
+                    while_hiding = false;
+                });
                 previous_clicked_card_id = id;    // To compare in the next click
             } else {
                 console.log("previous clicked card id isn't null");
@@ -159,25 +185,18 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                     console.log("the two cards are have the same symbol");
                     set_completed([id, previous_clicked_card_id]);
                     after_success_move = true;
-                    if ( check_grid_completed() ) {
-                        clearInterval(interval_id);
-                        total_time = new Date() - start_time;
-                        console.log(total_time);
-                        show_modal();
-                    }
                 } else {
                     console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
                     // Hide symbols
                     while_hiding = true;
                     const temp_previous = previous_clicked_card_id;
-                    setTimeout(() => {
-                        hide_symbol([id, temp_previous]);
-                        while_hiding = false;
-                        console.log("After hiding symbols");
-                    }, 1000);
+                    show_wrong([id, temp_previous]);
                 }
                 previous_clicked_card_id = null;
             }
+        } else {
+            $(this).addClass("border");
+            setTimeout(function() { $(`td[id=${id}]`).removeClass("border"); }, 150);
         }
     });
 

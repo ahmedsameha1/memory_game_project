@@ -7,13 +7,14 @@
 td {
     width: 120px;
     border-radius: 15px 15px;
+    animation-duration: 0.4s !important;
 }
 
 table {
     max-width: 100%;
     border-spacing: 30px;
     border-collapse: separate;
-    background-color: #00ffc7;
+    background: linear-gradient( #00ffc7, #00fa9a);
     border-radius: 15px 15px;
 }
 
@@ -42,5 +43,14 @@ td > img {
 }
 
 .completed {
-    background-color: #adff2f;
+    background-color: #ffd700;
+}
+
+.wrong {
+    background-color: #ff6347;
+}
+
+.border {
+    border: solid 10px #0000ff;
+    box-shadow: 2px 2px #fafad2;
 }

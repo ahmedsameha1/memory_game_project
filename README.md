@@ -33,3 +33,7 @@ https://stackoverflow.com/a/1232046 by: Philippe Leybaert
 https://stackoverflow.com/a/10481634 by: Larry K
 
 https://github.com/daneden/animate.css
+
+https://daneden.github.io/animate.css/
+
+https://www.youtube.com/watch?v=CBQGl6zokMs
