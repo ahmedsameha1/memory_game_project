@@ -37,8 +37,8 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             cards[parseInt(id, 10)].completed = true;
             cards[parseInt(id, 10)].completed = true;
         }
-        $(`td[id=${ids[0]}]`).addClass("animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
-        $(`td[id=${ids[1]}]`).addClass("animated rubberBand").one("animationend", function() {
+        $(`td[id=${ids[0]}]`).addClass("completed animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
+        $(`td[id=${ids[1]}]`).addClass("completed animated rubberBand").one("animationend", function() {
             $(this).removeClass("animated rubberBand");
             after_success_move = false;
             if ( check_grid_completed() ) {
@@ -169,7 +169,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("previous clicked card id is null");
                 console.log("show symbol & save this card in the previous");
                 show_symbol(this, id);
-                $(this).addClass("completed");
+                $(this).addClass("first-card");
                 while_hiding = true;
                 $(this).addClass("animated flipInY").one("animationend", function() {
                     $(this).removeClass("animated flipInY");
@@ -180,7 +180,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
                 console.log("previous clicked card id isn't null");
                 increment_moves();
                 show_symbol(this, id);
-                $(this).addClass("completed");
+                $(`td[id=${previous_clicked_card_id}]`).removeClass("first-card");
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
                     console.log("the two cards are have the same symbol");
                     set_completed([id, previous_clicked_card_id]);

@@ -5,21 +5,21 @@
 }
 
 td {
-    width: 120px;
-    border-radius: 15px 15px;
+    width: 40px;
+    border-radius: 5px 5px;
     animation-duration: 0.4s !important;
 }
 
 table {
     max-width: 100%;
-    border-spacing: 30px;
+    border-spacing: 10px;
     border-collapse: separate;
     background: linear-gradient( #00ffc7, #00fa9a);
-    border-radius: 15px 15px;
+    border-radius: 5px 5px;
 }
 
 tr {
-    height: 120px;
+    height: 40px;
 }
 
 img {
@@ -34,6 +34,7 @@ img {
 }
 
 td > img {
+    max-width: 50%;
     display: block;
     margin: auto;
 }
@@ -53,4 +54,40 @@ td > img {
 .border {
     border: solid 10px #0000ff;
     box-shadow: 2px 2px #fafad2;
+}
+
+.first-card {
+    background-color: #4169e1;
+}
+
+@media screen and (min-width: 700px) {
+    td {
+        width: 80px;
+        border-radius: 10px 10px;
+    }
+
+    table {
+        border-spacing: 20px;
+        border-radius: 10px 10px;
+    }
+
+    tr {
+        height: 80px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    td {
+        width: 120px;
+        border-radius: 15px 15px;
+    }
+
+    table {
+        border-spacing: 30px;
+        border-radius: 15px 15px;
+    }
+
+    tr {
+        height: 120px;
+    }
 }
