@@ -11,20 +11,11 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     let count_of_moves = 0;
     let previous_clicked_card_id = null;
     const completed_cards = []
-    let while_hiding = false;
-    let after_success_move = false;
+    let while_animation = false;
     let start_time, total_time, interval_id;
 
     const show_symbol = function(td, id) {
         $(td).append(`<img src="${cards[parseInt(id, 10)].symbol_file}">`);
-    };
-
-    const hide_symbol = function(ids) {
-        for ( let id of ids ) {
-            $(`td[id=${id}]`).empty();
-            $(`td[id=${id}]`).removeClass("completed");
-            $(`td[id=${id}]`).addClass("uncompleted");
-        }
     };
 
     const check_same_symbol = function(id1, id2){
@@ -40,11 +31,10 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         $(`td[id=${ids[0]}]`).addClass("completed animated rubberBand").one("animationend", function() { $(this).removeClass("animated rubberBand"); });
         $(`td[id=${ids[1]}]`).addClass("completed animated rubberBand").one("animationend", function() {
             $(this).removeClass("animated rubberBand");
-            after_success_move = false;
+            while_animation = false;
             if ( check_grid_completed() ) {
                 clearInterval(interval_id);
                 total_time = new Date() - start_time;
-                console.log(total_time);
                 show_modal();
             }
         });
@@ -52,9 +42,7 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
 
     const check_grid_completed = function() {
         for ( let card of cards ) {
-            console.log(card.completed);
             if ( !card.completed ) {
-                console.log("false");
                 return false;
             }
         }
@@ -62,7 +50,6 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     };
 
     const check_card_completed = function(id) {
-        console.log(id);
         return cards[parseInt(id, 10)].completed;
     };
 
@@ -111,15 +98,13 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
         let text = `You have completed the game in about ${Math.round(total_time / 1000)} seconds.`
         + `\nYou have earned ${star2_changed && star3_changed?"1 star":(star3_changed? "2 stars" : "3 stars")}.`
         $(".modal-body").text(text);
-        console.log(text);
         $('#modal').modal("show");
     };
 
     const restart_game = function() {
         total_time = undefined;
         start_time = undefined;
-        after_success_move = false;
-        while_hiding = false;
+        while_animation = false;
         count_of_moves = 0;
         previous_clicked_card_id = null;
         star2_changed = false;
@@ -143,7 +128,6 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
     };
 
     const show_wrong = function(ids) {
-        //for ( let id of ids ) {
         $(`td[id=${ids[0]}]`).addClass("wrong animated wobble").one("animationend", function() {
             $(this).removeClass("wrong completed animated wobble");
             $(this).empty();
@@ -153,48 +137,41 @@ const symbol_files = ["img/ic_account_balance_black_24px.svg",
             $(this).removeClass("wrong completed animated wobble");
             $(this).empty();
             $(this).addClass("uncompleted");
-            while_hiding = false;
+            while_animation = false;
         });
-        //}
     };
 
     $("table").on("click", "td", function(event) {
         const id = $(this).attr("id");
-        if ( id !== previous_clicked_card_id
-            && !while_hiding
-        && !check_card_completed(id)
-        && !after_success_move ) {
-            console.log("is not the previous clicked card");
-            if ( previous_clicked_card_id === null ) {
-                console.log("previous clicked card id is null");
-                console.log("show symbol & save this card in the previous");
+        if ( id !== previous_clicked_card_id   // Prevent action after the first click
+            && !while_animation                   // Prevent action while animbation
+        && !check_card_completed(id) ) {          // Prevent action on completed cards
+            if ( previous_clicked_card_id === null ) {       // The first click in the move
                 show_symbol(this, id);
                 $(this).addClass("first-card");
-                while_hiding = true;
+                while_animation = true;
                 $(this).addClass("animated flipInY").one("animationend", function() {
                     $(this).removeClass("animated flipInY");
-                    while_hiding = false;
+                    while_animation = false;
                 });
                 previous_clicked_card_id = id;    // To compare in the next click
-            } else {
-                console.log("previous clicked card id isn't null");
+            } else {                              // The second click in the move
                 increment_moves();
                 show_symbol(this, id);
                 $(`td[id=${previous_clicked_card_id}]`).removeClass("first-card");
                 if ( check_same_symbol(id, previous_clicked_card_id) ) {
-                    console.log("the two cards are have the same symbol");
                     set_completed([id, previous_clicked_card_id]);
-                    after_success_move = true;
+                    while_animation = true;
                 } else {
-                    console.log("the two cards doesn't have the same symbol,suppose to hide symbols");
                     // Hide symbols
-                    while_hiding = true;
+                    while_animation = true;
                     const temp_previous = previous_clicked_card_id;
                     show_wrong([id, temp_previous]);
                 }
-                previous_clicked_card_id = null;
+                previous_clicked_card_id = null;        // Prepare to the next move
             }
         } else {
+            // Producing effect with every click that do nothing with symbols
             $(this).addClass("border");
             setTimeout(function() { $(`td[id=${id}]`).removeClass("border"); }, 150);
         }
