@@ -37,3 +37,16 @@ https://github.com/daneden/animate.css
 https://daneden.github.io/animate.css/
 
 https://www.youtube.com/watch?v=CBQGl6zokMs
+
+
+
+DEPENDENCIES
+============
+
+https://getbootstrap.com/
+
+https://daneden.github.io/animate.css/
+
+https://jquery.com/
+
+https://popper.js.org/
