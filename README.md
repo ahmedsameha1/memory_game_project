@@ -1,6 +1,10 @@
 # memory_game_project
 A project on  Front-End Web Developer Nanodegree Program.
 
+PLAY THE GAME
+=============
+https://symbol-cards-memory-game.appspot.com/
+
 HOW TO SETUP AND RUN THE APPLICATION
 ====================================
 Just open index.html on your browser.
