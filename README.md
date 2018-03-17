@@ -1,6 +1,20 @@
 # memory_game_project
 A project on  Front-End Web Developer Nanodegree Program.
 
+HOW TO SETUP AND RUN THE APPLICATION
+====================================
+Just open index.html on your browser.
+
+HOW TO PLAY THE GAME
+====================
+Click on the cards to show the symbol on the cards.
+When the clicked cards has the same symbol, they are completed. The symbols will still be shown.
+When the clicked cards doesn't have the same symbols, they are not completed. The symbols will be hidden again.
+Your mission to complete full grid.
+Moves counter shows your current count of moves.
+The more move, the less stars to earn.
+When you complete the full grid, the game will show you your time and how many star you got.
+
 ATTRIBUTIONS
 ============
 
