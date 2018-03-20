@@ -1,5 +1,5 @@
-# memory_game_project
-A project on  Front-End Web Developer Nanodegree Program.
+# Memory Game Project
+A project on Udacity Front-End Web Developer Nanodegree Program.
 
 PLAY THE GAME
 =============
