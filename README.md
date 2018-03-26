@@ -30,6 +30,10 @@ https://material.io/icons/
 
 https://getbootstrap.com/docs/4.0/layout/grid/
 
+https://getbootstrap.com/docs/4.0/components/modal/
+
+https://getbootstrap.com/
+
 https://developer.mozilla.org/
 
 http://jquery.com/
